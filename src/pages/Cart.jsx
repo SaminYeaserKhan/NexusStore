@@ -10,7 +10,6 @@ import {
   Trash2, Plus, Minus, AlertTriangle, CreditCard, Banknote, 
   ShoppingBag, ArrowRight, Shield, Truck, Package, Sparkles, Zap
 } from "lucide-react";
-import { ScatteredFloatingIcons } from "../components/Interactive3D";
 
 // Animation variants
 const containerVariants = {
@@ -227,9 +226,6 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-dark-950 relative overflow-hidden">
-      {/* Scattered floating icons */}
-      <ScatteredFloatingIcons density="sparse" />
-      
       {/* Animated background blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div 

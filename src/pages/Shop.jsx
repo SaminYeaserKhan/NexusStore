@@ -6,7 +6,6 @@ import { db } from "../lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { Star, Filter, X, ShoppingBag, Sparkles, Zap, TrendingUp } from "lucide-react";
 import { fetchCategories } from "../lib/categories";
-import { ScatteredFloatingIcons } from "../components/Interactive3D";
 
 // Helper to calculate average rating from reviews
 const calculateAverageRating = (reviews, productId) => {
@@ -164,9 +163,6 @@ const Shop = () => {
 
   return (
     <div className="container mx-auto p-4 md:p-10 min-h-screen relative overflow-hidden">
-      {/* Scattered floating icons */}
-      <ScatteredFloatingIcons density="sparse" />
-      
       {/* Animated background elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div 

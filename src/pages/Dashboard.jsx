@@ -5,7 +5,6 @@ import { useAuth } from "../context/AuthContext";
 import { db } from "../lib/firebase";
 import { collection, query, where, getDocs, doc, updateDoc, getDoc } from "firebase/firestore";
 import { Package, User, Edit, Save, X, ShoppingBag, MapPin, Phone, Mail, Clock, CheckCircle, Truck, AlertCircle, Sparkles, Crown, Zap } from "lucide-react";
-import { ScatteredFloatingIcons } from "../components/Interactive3D"; 
 
 // Animation variants
 const containerVariants = {
@@ -133,9 +132,6 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-dark-950 relative overflow-hidden">
-      {/* Scattered floating icons */}
-      <ScatteredFloatingIcons density="sparse" />
-      
       {/* Animated background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div 

@@ -14,7 +14,6 @@ import {
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 import { User, Lock, Phone, Mail, BadgeCheck, AlertTriangle, ArrowRight, Sparkles, ArrowLeft, KeyRound, Zap, Shield } from "lucide-react";
-import { ScatteredFloatingIcons } from "../components/Interactive3D";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -591,9 +590,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-dark-950 dark:via-dark-900 dark:to-dark-950 px-4 py-10 relative overflow-hidden">
-      {/* Scattered floating icons */}
-      <ScatteredFloatingIcons density="sparse" />
-      
       {/* Animated background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div 

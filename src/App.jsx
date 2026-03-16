@@ -1,5 +1,7 @@
 // src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { AnimatePresence, motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop"; // Import the new page
@@ -25,27 +27,54 @@ import { ThemeProvider } from "./context/ThemeContext";
 const AppContent = () => {
   const { isMobileViewEnabled, isActualMobile } = useMobileView();
   const showMobileSearch = isMobileViewEnabled && !isActualMobile;
+  const location = useLocation();
+
+  const PageTransition = ({ children }) => {
+    const { scrollYProgress } = useScroll();
+    const smoothProgress = useSpring(scrollYProgress, {
+      stiffness: 80,
+      damping: 20,
+      mass: 0.4,
+    });
+    const scrollLift = useTransform(smoothProgress, [0, 1], [0, -24]);
+    const scrollScale = useTransform(smoothProgress, [0, 1], [1, 0.992]);
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 24, scale: 0.995 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -18, scale: 0.995 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.div style={{ y: scrollLift, scale: scrollScale }}>
+          {children}
+        </motion.div>
+      </motion.div>
+    );
+  };
 
   return (
     <MobileViewWrapper>
       <LavaLampBackground />
       <div className="min-h-screen transition-colors duration-300 font-sans mobile-content relative z-10">
         <Navbar />
-        <Routes>
-          {/* Home is now the Landing Page */}
-          <Route path="/" element={<Home />} />
-          
-          {/* Shop is the Discover/Filter Page */}
-          <Route path="/shop" element={<Shop />} />
-          
-          <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>} />
-          <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-          <Route path="/success" element={<PrivateRoute><Success /></PrivateRoute>} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/seed" element={<SeedData />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            {/* Home is now the Landing Page */}
+            <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+            
+            {/* Shop is the Discover/Filter Page */}
+            <Route path="/shop" element={<PageTransition><Shop /></PageTransition>} />
+            
+            <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+            <Route path="/admin" element={<PageTransition><AdminRoute><Admin /></AdminRoute></PageTransition>} />
+            <Route path="/cart" element={<PageTransition><PrivateRoute><Cart /></PrivateRoute></PageTransition>} />
+            <Route path="/success" element={<PageTransition><PrivateRoute><Success /></PrivateRoute></PageTransition>} />
+            <Route path="/dashboard" element={<PageTransition><PrivateRoute><Dashboard /></PrivateRoute></PageTransition>} />
+            <Route path="/product/:id" element={<PageTransition><ProductDetails /></PageTransition>} />
+            <Route path="/seed" element={<PageTransition><SeedData /></PageTransition>} />
+          </Routes>
+        </AnimatePresence>
         <Chatbot />
         {showMobileSearch && <MobileSearch />}
       </div>
