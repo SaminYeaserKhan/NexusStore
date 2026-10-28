@@ -1,0 +1,12 @@
+{
+  "name": "nexusstore-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "node record-demo.mjs",
+    "prepare-data": "node record-demo.mjs prepare"
+  },
+  "dependencies": {
+    "playwright": "1.48.2"
+  }
+}

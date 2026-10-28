@@ -27,3 +27,7 @@ node_modules/
 dist/
 .env
 .DS_Store
+
+# Demo recording settings and output
+demo/demo.env
+demo/videos/
