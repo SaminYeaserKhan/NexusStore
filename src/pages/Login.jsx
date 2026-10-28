@@ -28,7 +28,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
-  const [adminSecret, setAdminSecret] = useState(""); 
   
   const navigate = useNavigate();
 
@@ -94,14 +93,13 @@ const Login = () => {
         // 2. Send Verification Link
         await sendEmailVerification(user);
         
-        // 3. Save Profile
-        const role = (adminSecret && adminSecret.trim() === "admin123") ? "admin" : "user";
+        // 3. Save Profile (admins are promoted in the Firebase console, never from the client)
         await setDoc(doc(db, "users", user.uid), {
           uid: user.uid,
           email: email,
           username: username,
           phone: phone,
-          role: role, 
+          role: "user",
           createdAt: new Date(),
           cart: [] 
         });
@@ -803,24 +801,6 @@ const Login = () => {
               whileFocus={{ scale: 1.02 }}
             />
           </motion.div>
-          
-          {!isLogin && (
-            <motion.div 
-              className="pt-4 border-t border-gray-100 dark:border-white/10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <label className="text-xs text-gray-500 dark:text-gray-400 block mb-2 font-bold uppercase tracking-wider">Admin Access (Optional)</label>
-              <input 
-                type="text" 
-                placeholder="Enter Secret Code" 
-                className="w-full p-3 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl text-sm bg-gray-50 dark:bg-dark-700 focus:outline-none focus:border-primary-500 transition-colors text-gray-900 dark:text-white placeholder:text-gray-400" 
-                value={adminSecret} 
-                onChange={(e)=>setAdminSecret(e.target.value)} 
-              />
-            </motion.div>
-          )}
 
           {isLogin && (
             <div className="text-right -mt-2 mb-2">

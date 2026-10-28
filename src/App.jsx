@@ -72,7 +72,7 @@ const AppContent = () => {
             <Route path="/success" element={<PageTransition><PrivateRoute><Success /></PrivateRoute></PageTransition>} />
             <Route path="/dashboard" element={<PageTransition><PrivateRoute><Dashboard /></PrivateRoute></PageTransition>} />
             <Route path="/product/:id" element={<PageTransition><ProductDetails /></PageTransition>} />
-            <Route path="/seed" element={<PageTransition><SeedData /></PageTransition>} />
+            <Route path="/seed" element={<PageTransition><AdminRoute><SeedData /></AdminRoute></PageTransition>} />
           </Routes>
         </AnimatePresence>
         <Chatbot />
